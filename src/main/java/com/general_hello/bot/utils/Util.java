@@ -5,22 +5,24 @@ import com.general_hello.Config;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.internal.utils.Checks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.security.CodeSource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadFactory;
+
+/**
+ * A collection of utility methods.
+ */
 @SuppressWarnings("ConstantConditions")
-public class Util
-{
+public class Util {
 
     public static JDA firstShard()
     {
@@ -150,7 +152,7 @@ public class Util
         return destination;
     }
 
-    public static int getListeningUsers(@Nonnull VoiceChannel channel)
+    public static int getListeningUsers(VoiceChannel channel)
     {
         int nonBots = 0;
         for (Member member : channel.getMembers())

@@ -16,18 +16,36 @@ public class EmbedUtil
      */
 
     // If you want to change the color and emojis simply edit the ones below
+    /** The default color used in embeds. */
     public static final int DEFAULT_COLOR = 0x0099E1;
 
-    public static final int SUCCESS_COLOR = 0x0099E1 ;
+    /** The color used in success embeds. */
+    public static final int SUCCESS_COLOR = 0x0099E1;
+
+    /** The color used in error embeds. */
     public static final int ERROR_COLOR = 0x790604;
+
+    /** The color used in warning embeds. */
     public static final int WARNING_COLOR = 0xFFEA17;
 
+    /** The Unicode emoji used in success embeds. */
     public static final String SUCCESS_UNICODE = "✅";
+
+    /** The Unicode emoji used in error embeds. */
     public static final String ERROR_UNICODE = "❌";
+
+    /** The Unicode emoji used in warning embeds. */
     public static final String WARNING_UNICODE = "⚠";
+
+    /** The Unicode emoji used in no-entry embeds. */
     public static final String NO_ENTRY_UNICODE = "⛔";
 
-    // Default embed
+    /**
+     * Creates a default embed with the color given.
+     * @param content the content of the embed
+     * @param color the color of the embed
+     * @return the embed
+     */
     public static MessageEmbed defaultEmbed(String content, Color color)
     {
         return new EmbedBuilder()
@@ -36,6 +54,12 @@ public class EmbedUtil
                 .build();
     }
 
+    /**
+     * Creates a default embed with the color given.
+     * @param content the content of the embed
+     * @param color the color of the embed
+     * @return the embed
+     */
     public static MessageEmbed defaultEmbed(String content, int color)
     {
         return new EmbedBuilder()
@@ -44,6 +68,14 @@ public class EmbedUtil
                 .build();
     }
 
+    /**
+     * Creates a default embed with the color given.
+     * @param content the content of the embed
+     * @param r the red value of the color
+     * @param g the green value of the color
+     * @param b the blue value of the color
+     * @return the embed
+     */
     public static MessageEmbed defaultEmbed(String content, byte r, byte g, byte b)
     {
         return new EmbedBuilder()
@@ -51,7 +83,6 @@ public class EmbedUtil
                 .setColor(rgbToInt(r, g, b))
                 .build();
     }
-
 
     public static MessageEmbed defaultEmbed(String content)
     {
