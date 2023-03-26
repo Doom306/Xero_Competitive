@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/user/986136b0-1846-407d-98bf-6419adad41cb/project/a0c08b0b-e2ad-4aed-8c9c-bf73a4d8efbf.svg)](https://wakatime.com/badge/user/986136b0-1846-407d-98bf-6419adad41cb/project/a0c08b0b-e2ad-4aed-8c9c-bf73a4d8efbf)
+
 Bot should create a 3vs3 ranked channel where up to 6 users can join at a time or leave the queue (can be a button or typing =join/=leave)
 
 Basic elo system: bronze (1500), silver (1750), gold (2000), plat (2250), dia (2500) and masters (2750). Fixed points for each role, e.g. you gain 26 points if you win when bronze but only gain 6 points at master. Same for losses.
