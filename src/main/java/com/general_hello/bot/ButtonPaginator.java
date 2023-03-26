@@ -116,11 +116,11 @@ public class ButtonPaginator {
                     page <= 1 ? first.asDisabled() : first,
                     page <= 1 ? previous.asDisabled() : previous,
                     page >= pages ? next.asDisabled() : next,
-                    page >= pages ? last.asDisabled() : last, refresh);
+                    page >= pages ? last.asDisabled() : last);
         else
             return ActionRow.of(
                     page <= 1 ? previous.asDisabled() : previous,
-                    page >= pages ? next.asDisabled() : next, refresh);
+                    page >= pages ? next.asDisabled() : next);
     }
 
     private void waitForEvent(long channelId, long messageId)

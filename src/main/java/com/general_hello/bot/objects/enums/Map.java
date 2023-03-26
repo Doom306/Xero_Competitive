@@ -1,5 +1,8 @@
 package com.general_hello.bot.objects.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Map {
     // The maps are: Station-1, Station-2, Temple-M, Colosseum, Side-3, Ice Square and Wonderland.
     STATION_1("Station-1"),
@@ -25,7 +28,7 @@ public enum Map {
      * @return the name of the map.
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -40,5 +43,19 @@ public enum Map {
             }
         }
         return null;
+    }
+
+    /**
+     * Returns a string with all the maps
+     * @return a string with all the maps
+     */
+    public static String getMapString(List<Map> bannedMaps) {
+        ArrayList<Map> listOfMaps = new ArrayList<>(List.of(Map.values()));
+        listOfMaps.removeAll(bannedMaps);
+        StringBuilder maps = new StringBuilder();
+        for (Map map : listOfMaps) {
+            maps.append(map.getName()).append(", ");
+        }
+        return maps.substring(0, maps.length() - 2);
     }
 }

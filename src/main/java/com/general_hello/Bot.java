@@ -1,6 +1,11 @@
 package com.general_hello;
 
+import com.general_hello.bot.commands.LeaderboardCommand;
+import com.general_hello.bot.commands.ProfileCommand;
 import com.general_hello.bot.commands.SendJoinLeaveMessageCommand;
+import com.general_hello.bot.commands.mod.AddPointsCommand;
+import com.general_hello.bot.commands.mod.BanCommand;
+import com.general_hello.bot.commands.mod.ClearQueueCommand;
 import com.general_hello.bot.events.OnButtonClick;
 import com.general_hello.bot.events.OnReadyEvent;
 import com.general_hello.bot.objects.GlobalVariables;
@@ -79,8 +84,8 @@ public class Bot {
         client.setOwnerId(Config.get("owner_id"));
         client.setCoOwnerIds(Config.get("owner_id_partner"));
         client.setPrefix(Config.get("prefix"));
-        client.setStatus(OnlineStatus.IDLE);
-        client.setActivity(Activity.listening("A B C D E F G..."));
+        client.setStatus(OnlineStatus.ONLINE);
+        client.setActivity(Activity.playing("Xero Competitive"));
         addCommands(client);
         eventWaiter = new EventWaiter();
         CommandClient commandClient = client.build();
@@ -123,7 +128,9 @@ public class Bot {
      * @param clientBuilder the CommandClientBuilder object to add the commands to.
      */
     private static void addCommands(CommandClientBuilder clientBuilder) {
-        clientBuilder.addSlashCommands(new SendJoinLeaveMessageCommand());
-        LOGGER.info("Added the slash commands!");
+        clientBuilder.addSlashCommands(new SendJoinLeaveMessageCommand(), new AddPointsCommand(),
+                new BanCommand(), new ProfileCommand(), new LeaderboardCommand());
+        clientBuilder.addContextMenus(new ClearQueueCommand());
+        LOGGER.info("Added the slash commands and context menus!");
     }
 }

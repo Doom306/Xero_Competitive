@@ -1,5 +1,8 @@
 package com.general_hello.bot.events;
 
+import com.general_hello.bot.objects.ELOUser;
+import com.general_hello.bot.objects.Matchmaking;
+import com.general_hello.bot.objects.enums.Map;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.GenericSelectMenuInteractionEvent;
@@ -23,6 +26,10 @@ public class OnButtonClick extends ListenerAdapter {
      */
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
+        if (ELOUser.isBanned(event.getUser().getIdLong())) {
+            event.reply("You are banned from using this bot").setEphemeral(true).queue();
+            return;
+        }
         // users can spoof this id so be careful what you do with this
         String[] id = event.getComponentId().split(":"); // this is the custom id we specified in our button
         String authorId = id[0];
@@ -40,6 +47,41 @@ public class OnButtonClick extends ListenerAdapter {
         }
 
         User author = event.getUser();
+
+        switch (type) {
+            case "join" -> {
+                if (Matchmaking.Match.usersToMatch.containsKey(author.getIdLong())) {
+                    event.reply("You are already in a match").setEphemeral(true).queue();
+                    return;
+                }
+
+                if (Matchmaking.isInQueue(author.getIdLong())) {
+                    event.reply("You are already in the queue").setEphemeral(true).queue();
+                    return;
+                }
+                event.deferEdit().queue();
+
+                Matchmaking.addToQueue(author.getIdLong());
+                event.getHook().editOriginalEmbeds(Matchmaking.getQueueEmbed(event.getGuild()).build())
+                        .setComponents(Matchmaking.getQueueActionRow()).queue();
+            }
+            case "leave" -> {
+                if (Matchmaking.Match.usersToMatch.containsKey(author.getIdLong())) {
+                    event.reply("You are already in a match").setEphemeral(true).queue();
+                    return;
+                }
+
+                if (!Matchmaking.isInQueue(author.getIdLong())) {
+                    event.reply("You are not in the queue").setEphemeral(true).queue();
+                    return;
+                }
+                event.deferEdit().queue();
+
+                Matchmaking.removeFromQueue(author.getIdLong());
+                event.getHook().editOriginalEmbeds(Matchmaking.getQueueEmbed(event.getGuild()).build())
+                        .setComponents(Matchmaking.getQueueActionRow()).queue();
+            }
+        }
     }
 
     /**
@@ -48,6 +90,33 @@ public class OnButtonClick extends ListenerAdapter {
      */
     @Override
     public void onGenericSelectMenuInteraction(@NotNull GenericSelectMenuInteractionEvent event) {
+        if (ELOUser.isBanned(event.getUser().getIdLong())) {
+            event.reply("You are banned from using this bot").setEphemeral(true).queue();
+            return;
+        }
         String value = (String) event.getValues().get(0);
+        // map banning
+        String id = event.getSelectMenu().getId();
+        if (id.startsWith("map")) {
+            String[] split = id.split(":");
+            String authorId = split[1];
+            if (!authorId.equals("0000") && !authorId.equals(event.getUser().getId())) {
+                event.reply("You can't press this button").setEphemeral(true).queue();
+                return;
+            }
+            event.deferEdit().queue();
+            Matchmaking.Match match = Matchmaking.Match.usersToMatch.get(event.getUser().getIdLong());
+            match.banMap(Map.getMap(value), event.getGuild(), event);
+        } else if (id.startsWith("winner")) {
+            String[] split = id.split(":");
+            String authorId = split[1];
+            if (!authorId.equals("0000") && !authorId.equals(event.getUser().getId())) {
+                event.reply("You can't press this button").setEphemeral(true).queue();
+                return;
+            }
+
+            Matchmaking.Match match = Matchmaking.Match.usersToMatch.get(event.getUser().getIdLong());
+            match.endMatch(value, event.getGuild(), event);
+        }
     }
 }
