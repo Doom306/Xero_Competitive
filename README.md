@@ -79,3 +79,7 @@ Basic moderator commands include:
 ![image](https://github.com/user-attachments/assets/b0bb09de-b4f1-4b2c-81d9-66bf0ab4933c)
 ### Leaderboard
 ![image](https://github.com/user-attachments/assets/f8031e94-f407-499a-af65-979c3c662237)
+
+
+## Last updated
+### March 26, 2023
