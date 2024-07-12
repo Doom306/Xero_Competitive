@@ -25,6 +25,14 @@ Maps should be banned by the 2 captains starting with captain 1. The maps are: S
 
 Users are able to write a command to say which team won e.g. =game 2, and the bot should automatically award the points. 
 
+## Images
+### Matchmaking
+![image](https://github.com/user-attachments/assets/caab36ec-7e30-484c-9946-bb16732eacfd)
+### User Profile
+![image](https://github.com/user-attachments/assets/b0bb09de-b4f1-4b2c-81d9-66bf0ab4933c)
+### Leaderboard
+![image](https://github.com/user-attachments/assets/f8031e94-f407-499a-af65-979c3c662237)
+
 There should be a leaderboard command.
 
 There should be some basic moderator commands such as manual points modifier, a ban and clear queue.
